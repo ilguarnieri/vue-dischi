@@ -1,25 +1,21 @@
 <template>
 
     <div class="album-item">
-
         <figure class="album__img">
-            <img class="album__img" :src="album.poster">
+            <img :src="album.poster">
         </figure>
 
         <div class="album__info">
             <h3 class="album__title">{{album.title}}</h3>
-
             <p class="album__artist">{{album.author}}</p>
             <p class="album__year">{{album.year}}</p>
         </div>
-
-
     </div>
     
 </template>
 
 <script>
-export default {
+export default{
     name: 'AlbumItems',
     props: {
         album:{
@@ -31,36 +27,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/variables.scss';
 
 .album-item{
+    text-align: center;
+    background-color: rgba(white, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 4px 14px 0px rgba(black, 0.5);
+    cursor: pointer;
+    user-select: none;
+    transition: all 350ms ease-in-out;
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 360px;
-        width: calc((100% / 5) - 30px);
-        background-color: $bgHeader;
-
-        .album__img{
-            aspect-ratio: 1;
-            width: 160px;
-            margin-bottom: 25px;
-        }
-
-        .album__info{
-
-            .album__title{
-                text-transform: uppercase;
-                margin-bottom: 40px;
-            }
-    
-            .album__artist, .album__year{
-                color: $bgGray;
-                font-weight: 700;
-            }
-        }
-
+    &:hover{
+        transform: scale(1.05);
     }
+
+    .album__img{
+        max-height: 160px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        border-radius: 10px;
+
+        img{
+            object-fit: cover;
+            aspect-ratio: 1;
+        }
+    }
+
+    .album__title{
+        margin-bottom: 25px;
+    }
+
+    .album__artist, .album__year{
+        color: #808080;
+        font-weight: 700;
+    }
+}
 
 </style>

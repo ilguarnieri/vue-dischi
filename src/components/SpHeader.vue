@@ -17,19 +17,21 @@ export default{
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/variables.scss';
 
 header{
-    height: 70px;
-    background-color: $bgHeader;
-    display: flex;
-    align-items: center;
+
+    padding: 10px 20px;
+    background-color: rgba(white, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 
     .header__logo{
         width: 45px;
-        margin-left: 20px;
+        cursor: pointer;
+        display: block;
     }
-
 }
 
 </style>

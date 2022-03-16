@@ -21,14 +21,12 @@ export default {
 </script>
 
 <style lang="scss">
-@import './assets/scss/variables.scss';
 @import './assets/scss/common.scss';
 
 #app {
   font-family: Montserrat, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: $bgBody;
+  -moz-osx-font-smoothing: grayscale;  
 }
 
 </style>
