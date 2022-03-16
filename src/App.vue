@@ -21,21 +21,14 @@ export default {
 </script>
 
 <style lang="scss">
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-img{
-  max-width: 100%;
-}
+@import './assets/scss/variables.scss';
+@import './assets/scss/common.scss';
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: $bgBody;
 }
 
 </style>

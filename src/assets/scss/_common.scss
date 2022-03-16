@@ -1,0 +1,16 @@
+@import "~@fontsource/montserrat/index.css";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img{
+  max-width: 100%;
+}
+
+@mixin container {
+    max-width: 1160px;
+    margin: 0 auto;
+}
