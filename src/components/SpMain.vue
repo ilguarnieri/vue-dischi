@@ -15,7 +15,7 @@
             <div v-else>
 
                 <!-- filters -->
-                <SpSearch :genres="genres" :artists="artists"/>
+                <SpSearch :genres="genres" :artists="artists" @filtro="this.view" />
                 
                 <!-- albums -->
                 <div class="albums-wrapper">
@@ -63,6 +63,10 @@ export default{
                 this.error = true;
             })
         },
+
+        view: function(index){
+            console.log(index)
+        }
     },
 
     computed:{

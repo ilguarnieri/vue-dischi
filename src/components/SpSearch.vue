@@ -4,17 +4,25 @@
 
         <div class="genre-filter">
             <label for="list-genres">Select a genre:</label>
-            <select name="genres" id="list-genres">
-                <option value="all">All</option>
-                <option v-for="(genre,i) in genres" :key="i" value="genre">{{genre}}</option>
+
+            <select name="genres" id="list-genres" v-model="genreSelect" @change="$emit('filtro', genreSelect)">
+                <option value="All" selected>All</option>
+                <option v-for="(genre,i) in genres" :key="i"
+                :value="genre">
+                {{genre}}
+                </option>
             </select>
         </div>
 
         <div class="artist-filter">
             <label for="list-artists">Select a genre:</label>
-            <select name="genre" id="album-genre">
-                <option value="all">All</option>
-                <option v-for="(artist,i) in artists" :key="i" value="artist">{{artist}}</option>
+
+            <select name="artists" id="list-artists" v-model="artistSelect" @change="$emit('filtro', artistSelect)">
+                <option value="All" selected>All</option>
+                <option v-for="(artist,i) in artists" :key="i"
+                :value="artist">
+                {{artist}}
+                </option>
             </select>
         </div>
 
@@ -25,6 +33,12 @@
 <script>
 export default{
     name: 'SpSearch',
+    data(){
+        return {
+            genreSelect: '',
+            artistSelect: ''
+        }
+    },
     props:{
         artists:{
             type: Array
@@ -34,7 +48,6 @@ export default{
         }
     }
 }
-
 </script>
 
 <style lang="scss" scoped>
