@@ -37,6 +37,7 @@ export default{
     cursor: pointer;
     user-select: none;
     transition: all 350ms ease-in-out;
+    min-height: 340px;
 
     &:hover{
         transform: scale(1.05);

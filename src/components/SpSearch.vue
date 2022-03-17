@@ -5,8 +5,8 @@
         <div class="genre-filter">
             <label for="list-genres">Select a genre:</label>
 
-            <select name="genres" id="list-genres" v-model="genreSelect" @change="$emit('filtro', genreSelect)">
-                <option value="All" selected>All</option>
+            <select class="list" name="genres" id="list-genres" v-model="genreSelect" @change="$emit('filtro', genreSelect), artistSelect = ''">
+                <option value='' selected>All</option>
                 <option v-for="(genre,i) in genres" :key="i"
                 :value="genre">
                 {{genre}}
@@ -17,8 +17,8 @@
         <div class="artist-filter">
             <label for="list-artists">Select a genre:</label>
 
-            <select name="artists" id="list-artists" v-model="artistSelect" @change="$emit('filtro', artistSelect)">
-                <option value="All" selected>All</option>
+            <select class="list" name="artists" id="list-artists" v-model="artistSelect" @change="$emit('filtro', artistSelect), genreSelect = ''">
+                <option value='' selected>All</option>
                 <option v-for="(artist,i) in artists" :key="i"
                 :value="artist">
                 {{artist}}
@@ -53,17 +53,28 @@ export default{
 <style lang="scss" scoped>
 
 .filter-wrapper{
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
+
+    .genre-filter > *, .artist-filter > *{
+        margin-right: 8px;
+    }
+
+    .list{
+        border: none;
+        border-radius: 8px;
+        padding: 2px;
+    }
 }
 
 @media all and (max-width:500px) {
 
     .filter-wrapper{
         flex-direction: column;
+
     }        
 }
 

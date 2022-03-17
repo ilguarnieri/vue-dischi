@@ -1,6 +1,10 @@
 <template>
 
-    <main>   
+    <main>  
+
+        <!-- filters -->
+            <SpSearch :genres="genres" :artists="artists" @filtro="this.getFilter" />
+
         <div class="container">
 
             <!-- text error -->
@@ -12,14 +16,11 @@
             <div v-else-if="albums.length == 0" class="lds-ring"><div></div><div></div><div></div><div></div></div>
 
             <!-- wrapper music -->
-            <div v-else>
-
-                <!-- filters -->
-                <SpSearch :genres="genres" :artists="artists" @filtro="this.view" />
+            <div v-else>                
                 
                 <!-- albums -->
                 <div class="albums-wrapper">
-                    <AlbumItems v-for="(album,i) in albums" :key="i" :album="album"/>
+                    <AlbumItems v-for="(album,i) in filteredAlbum" :key="i" :album="album"/>
                 </div>
 
             </div>
@@ -45,6 +46,7 @@ export default{
             albums: [],
             genres:[],
             artists:[],
+            filtro: '',
             error: false
         }
     },
@@ -64,15 +66,14 @@ export default{
             })
         },
 
-        view: function(index){
-            console.log(index)
+        getFilter: function(value){
+            this.filtro = value;
         }
     },
 
     computed:{
 
         getGenre: function(){
-
             return this.albums.forEach(el => {
                 if(!this.genres.includes(el.genre)){
                     this.genres.push(el.genre);
@@ -81,6 +82,13 @@ export default{
                 if(!this.artists.includes(el.author)){
                     this.artists.push(el.author);
                 }
+            })
+        },
+
+        filteredAlbum: function(){
+            return this.albums.filter( el => {
+                const {genre, author} = el;
+                return genre.toLowerCase().includes( this.filtro.toLowerCase() ) || author.toLowerCase().includes( this.filtro.toLowerCase() )
             })
         }
     },
@@ -97,55 +105,63 @@ export default{
 
 main{
     min-height: 100vh;
-    padding: 90px 10px;
+    padding: 90px 10px 30px;
     background-color: #1E2D3B;
     color: white;
     display: flex;
-    justify-content: center;
-    align-items: center;    
+    flex-direction: column;
 
-    .albums-wrapper{            
+    .container{
         display: flex;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-        gap: 30px;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
 
-        & > *{
-            width: 200px;
+        .albums-wrapper{            
+            display: flex;
+            flex-grow: 1;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            gap: 30px;
+
+            & > *{
+                width: 200px;
+            }
+        }    
+
+        .api__error{
+            text-align: center;
         }
-    }    
 
-    .api__error{
-        text-align: center;
+        .lds-ring {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border: 8px solid #fff;
+            border-radius: 50%;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: #aaa transparent transparent transparent;
+        }
+        .lds-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+        .lds-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+        .lds-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
     }
 
-    .lds-ring {
-        display: inline-block;
-        position: relative;
-        width: 80px;
-        height: 80px;
-    }
-    .lds-ring div {
-        box-sizing: border-box;
-        display: block;
-        position: absolute;
-        width: 64px;
-        height: 64px;
-        margin: 8px;
-        border: 8px solid #fff;
-        border-radius: 50%;
-        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        border-color: #aaa transparent transparent transparent;
-    }
-    .lds-ring div:nth-child(1) {
-        animation-delay: -0.45s;
-    }
-    .lds-ring div:nth-child(2) {
-        animation-delay: -0.3s;
-    }
-    .lds-ring div:nth-child(3) {
-        animation-delay: -0.15s;
-    }
     @keyframes lds-ring {
         0% {
             transform: rotate(0deg);
