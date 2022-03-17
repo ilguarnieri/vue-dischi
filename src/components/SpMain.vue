@@ -3,7 +3,11 @@
     <main>   
         <div class="container">
 
-            <div v-if="albums.length == 0" class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            <div class="api__error" v-if="error">
+                <h2>CI DISPIACE MA NON E' STATO POSSIBILE COMPLETARE LA RICHIESTA</h2>
+            </div>
+
+            <div v-else-if="albums.length == 0" class="lds-ring"><div></div><div></div><div></div><div></div></div>
 
             <div v-else class="albums-wrapper">
 
@@ -30,7 +34,7 @@ export default{
     data(){
         return{
             albums: [],
-            eroor: false
+            error: false
         }
     },
 
@@ -50,7 +54,7 @@ export default{
     },
 
     created() {
-        setTimeout(this.fetchAlbums, 1500)
+        setTimeout(this.fetchAlbums, 1000)
     }
 }
 
@@ -77,6 +81,10 @@ main{
         & > *{
             width: 200px;
         }
+    }
+
+    .api__error{
+        text-align: center;
     }
 
     .lds-ring {
