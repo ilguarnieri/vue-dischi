@@ -3,17 +3,24 @@
     <main>   
         <div class="container">
 
+            <!-- text error -->
             <div class="api__error" v-if="error">
                 <h2>CI DISPIACE MA NON E' STATO POSSIBILE COMPLETARE LA RICHIESTA</h2>
             </div>
 
+            <!-- loader -->
             <div v-else-if="albums.length == 0" class="lds-ring"><div></div><div></div><div></div><div></div></div>
 
-            <div v-else class="albums-wrapper">
+            <!-- wrapper music -->
+            <div v-else>
 
-            <AlbumItems v-for="(el,i) in albums" :key="i" :album="el"/>
-
-            <!-- error= true CI DISPIACE MA NON E' STATO POSSIBILE COMPLETARE LA RICHIESTA -->
+                <!-- filters -->
+                <SpSearch :genres="genres" :artists="artists"/>
+                
+                <!-- albums -->
+                <div class="albums-wrapper">
+                    <AlbumItems v-for="(album,i) in albums" :key="i" :album="album"/>
+                </div>
 
             </div>
         </div>
@@ -24,16 +31,20 @@
 <script>
 import axios from 'axios'
 import AlbumItems from './AlbumItem.vue'
+import SpSearch from './SpSearch.vue'
 
 export default{
     name: 'SpMain',
     components:{
-        AlbumItems
+        AlbumItems,
+        SpSearch
     },
 
     data(){
         return{
             albums: [],
+            genres:[],
+            artists:[],
             error: false
         }
     },
@@ -43,12 +54,29 @@ export default{
             axios.get('https://flynn.boolean.careers/exercises/api/array/music')
             .then( res => {
                 this.albums = res.data.response;
+                this.getGenre;
                 this.error = false;
             })
             .catch(err => {
                 console.error(err.response);
                 this.albums = [];
                 this.error = true;
+            })
+        },
+    },
+
+    computed:{
+
+        getGenre: function(){
+
+            return this.albums.forEach(el => {
+                if(!this.genres.includes(el.genre)){
+                    this.genres.push(el.genre);
+                }
+
+                if(!this.artists.includes(el.author)){
+                    this.artists.push(el.author);
+                }
             })
         }
     },
@@ -81,7 +109,7 @@ main{
         & > *{
             width: 200px;
         }
-    }
+    }    
 
     .api__error{
         text-align: center;
@@ -103,7 +131,7 @@ main{
         border: 8px solid #fff;
         border-radius: 50%;
         animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        border-color: #fff transparent transparent transparent;
+        border-color: #aaa transparent transparent transparent;
     }
     .lds-ring div:nth-child(1) {
         animation-delay: -0.45s;

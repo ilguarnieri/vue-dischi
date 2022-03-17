@@ -29,4 +29,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;  
 }
 
+
+
+/* Descrizione:
+Generale la lista dei generi dall’array di album per stampare dinamicamente le option della select
+(quindi dove capire come far arrivare questi dati alla select, in base a come strutturate i vostri componenti)
+
+Aggiungere un ulteriore select che filtra gli album per artista,
+(anche per questa option generate le option degli artisti dinamicamente).
+Buon lavoro e buon week end */
+
 </style>
